@@ -3,112 +3,608 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoboVerse - Free Image Converter & Resizer</title>
-    
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5926136240372749" crossorigin="anonymous"></script>
-
+    <title>RoboVerse Toolkit - Free Online Utility Tools</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; line-height: 1.6; }
-        .container { max-width: 600px; margin: 0 auto; background: #1e293b; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        h1 { text-align: center; margin-bottom: 10px; color: #38bdf8; font-size: 24px; }
-        p.subtitle { text-align: center; color: #94a3b8; margin-bottom: 25px; font-size: 14px; }
-        .upload-box { border: 2px dashed #475569; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
-        .upload-box:hover { border-color: #38bdf8; background: #0f172a; }
-        input[type="file"] { display: none; }
-        .controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-        .control-group { flex: 1; min-width: 200px; }
-        label { display: block; margin-bottom: 5px; font-size: 13px; color: #cbd5e1; }
-        select, input[type="number"] { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #475569; color: white; border-radius: 6px; }
-        button { width: 100%; background: #0284c7; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #0369a1; }
-        .result { margin-top: 25px; text-align: center; }
-        .result img { max-width: 100%; max-height: 200px; border-radius: 6px; margin-top: 10px; border: 1px solid #475569; }
-        .download-btn { display: inline-block; margin-top: 15px; background: #22c55e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; }
-        .download-btn:hover { background: #16a34a; }
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --success: #10b981;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+        
+        /* Modern Pro Header */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Navigation & Hamburger */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Hero Intro Section */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        .hero p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 650px;
+            margin: 10px auto 40px auto;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            gap: 5px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 10px 10px;
+            cursor: pointer;
+            color: var(--text-light);
+            flex: 1;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tool-section, .page-section {
+            display: none;
+        }
+        .tool-section.active, .page-section.active {
+            display: block;
+        }
+
+        /* Form Controls */
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-color);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #fcfcfc;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+        textarea {
+            resize: vertical;
+            height: 110px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 8px;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .preset-group, .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .preset-btn {
+            background: #e0e7ff;
+            color: var(--primary);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+        .preset-btn:hover {
+            background: #c7d2fe;
+        }
+        /* Active Green Style for Text Style Buttons */
+        .preset-btn.active-style {
+            background-color: var(--success) !important;
+            color: white !important;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .checkbox-container input {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            text-align: center;
+        }
+        canvas, img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* Static Pages Styling */
+        .static-page h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .static-page p {
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+        /* Responsive Mobile Drawer */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                border-bottom: 1px solid var(--border-color);
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Image Converter & Resizer</h1>
-    <p class="subtitle">Convert PNG/JPG to WebP/JPG and resize instantly in your browser!</p>
+    <!-- Pro Header with Hamburger Menu -->
+    <header>
+        <a href="#" class="logo" onclick="switchView('tools')">⚡ RoboVerse</a>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav class="nav-links" id="navLinks">
+            <a onclick="switchView('tools'); toggleMenu();">Tools</a>
+            <a onclick="switchView('about'); toggleMenu();">About Us</a>
+            <a onclick="switchView('privacy'); toggleMenu();">Privacy Policy</a>
+            <a onclick="switchView('contact'); toggleMenu();">Contact Us</a>
+        </nav>
+    </header>
 
-    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-        <p>📁 Click here to select an image</p>
-        <input type="file" id="fileInput" accept="image/*" onchange="handleImage(event)">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Free Online Utility Toolkit</h1>
+        <p>Fast, secure, and pro tools for image sizing, formatting, and text styling.</p>
     </div>
 
-    <div id="editorSection" style="display:none;">
-        <div class="controls">
-            <div class="control-group">
-                <label>Convert Format:</label>
+    <div class="container">
+        
+        <!-- TOOLS VIEW -->
+        <div id="toolsView" class="page-section active">
+            <!-- Navigation Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('resizer')">Image Resizer</button>
+                <button class="tab-btn" onclick="switchTab('converter')">Converter</button>
+                <button class="tab-btn" onclick="switchTab('textstyle')">Text & Style</button>
+            </div>
+
+            <!-- Tool 1: Advanced Image Resizer & Banner/Logo Maker -->
+            <div id="resizer" class="tool-section active">
+                <label>Select Image File</label>
+                <input type="file" id="resizeImageInput" accept="image/*">
+                
+                <label>Quick Presets (Size / Logo)</label>
+                <div class="preset-group">
+                    <button class="preset-btn" onclick="setPreset(2560, 1440)">YouTube Banner</button>
+                    <button class="preset-btn" onclick="setPreset(1080, 1080)">Instagram Post</button>
+                    <button class="preset-btn" onclick="setPreset(500, 500)">Standard Logo</button>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex:1;">
+                        <label>Target Width (px)</label>
+                        <input type="number" id="widthInput" placeholder="Width">
+                    </div>
+                    <div style="flex:1;">
+                        <label>Target Height (px)</label>
+                        <input type="number" id="heightInput" placeholder="Height (Optional)">
+                    </div>
+                </div>
+
+                <label class="checkbox-container">
+                    <input type="checkbox" id="circularCrop"> Make Circular Image (Perfect for Logos)
+                </label>
+
+                <button class="btn-primary" onclick="resizeImage()">Process & Download Image</button>
+                <div class="result-box">
+                    <canvas id="resizeCanvas" style="display:none;"></canvas>
+                </div>
+            </div>
+
+            <!-- Tool 2: Image Format Converter -->
+            <div id="converter" class="tool-section">
+                <label>Select Image File</label>
+                <input type="file" id="convertImageInput" accept="image/*">
+                <label>Convert To Format</label>
                 <select id="formatSelect">
                     <option value="image/jpeg">JPG</option>
                     <option value="image/png">PNG</option>
                     <option value="image/webp">WebP</option>
                 </select>
+                <button class="btn-primary" onclick="convertImage()">Convert & Download</button>
+                <div class="result-box">
+                    <canvas id="convertCanvas" style="display:none;"></canvas>
+                </div>
             </div>
-            <div class="control-group">
-                <label>Resize Width (px):</label>
-                <input type="number" id="widthInput" placeholder="Keep original">
+
+            <!-- Tool 3: Text Case, Bold, Italic & Stylish Generator -->
+            <div id="textstyle" class="tool-section">
+                <label>Enter or Paste Text</label>
+                <textarea id="textInput" placeholder="Type text here to format..." oninput="onUserTyping()"></textarea>
+                
+                <label>Text Styling & Formatting</label>
+                <div class="preset-group">
+                    <button class="preset-btn" id="btn-bold" onclick="applyTextStyle('bold')"><b>Bold</b></button>
+                    <button class="preset-btn" id="btn-italic" onclick="applyTextStyle('italic')"><i>Italic</i></button>
+                    <button class="preset-btn" id="btn-script" onclick="applyTextStyle('script')">✨ Script</button>
+                    <button class="preset-btn" id="btn-sans" onclick="applyTextStyle('sans')">🔠 Sans</button>
+                </div>
+
+                <div class="btn-group" style="margin-top: 10px;">
+                    <button class="btn-primary" onclick="convertCase('upper')">UPPERCASE</button>
+                    <button class="btn-primary" onclick="convertCase('lower')">lowercase</button>
+                </div>
+                <button class="btn-primary" onclick="copyText()" style="background-color: #0f172a;">Copy Formatted Text</button>
             </div>
         </div>
 
-        <button onclick="processImage()">Process & Convert</button>
+        <!-- ABOUT US PAGE -->
+        <div id="aboutView" class="page-section static-page">
+            <h2>About Us</h2>
+            <p>Welcome to <strong>RoboVerse Toolkit</strong>, your ultimate destination for fast, reliable, and lightweight web-based utility tools.</p>
+            <p>Our mission is to provide hassle-free digital tools that run entirely inside your browser, ensuring high speed and complete privacy for your files and data.</p>
+        </div>
+
+        <!-- PRIVACY POLICY PAGE -->
+        <div id="privacyView" class="page-section static-page">
+            <h2>Privacy Policy</h2>
+            <p>At RoboVerse Toolkit, accessible from roboverse14.github.io, we prioritize the privacy of our visitors.</p>
+            <p>All image processing and text conversions happen locally inside your web browser via client-side scripts. We do not upload, store, or view any of your files or personal data on external servers.</p>
+        </div>
+
+        <!-- CONTACT US PAGE -->
+        <div id="contactView" class="page-section static-page">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, suggestions, or feedback regarding our tools, feel free to reach out to us.</p>
+            <p><strong>Email:</strong> amannegi12947n@gmail.com</p>
+        </div>
+
     </div>
 
-    <div class="result" id="resultSection"></div>
-</div>
+    <script>
+        let rawPlainText = "";
 
-<script>
-    let uploadedImage = null;
+        // Unicode Maps Global Definition
+        const boldMap = {'a':'𝗮','b':'𝗯','c':'𝗰','d':'𝗱','e':'𝗲','f':'𝗳','g':'𝗴','h':'𝗵','i':'𝗶','j':'𝗷','k':'𝗸','l':'𝗹','m':'𝗺','n':'𝗻','o':'𝗼','p':'𝗽','q':'𝗾','r':'𝗿','s':'𝘀','t':'𝘁','u':'𝘂','v':'𝘃','w':'𝘄','x':'𝘅','y':'𝘆','z':'𝘇','A':'𝗔','B':'𝗕','C':'𝗖','D':'𝗗','E':'𝗘','F':'𝗙','G':'𝗚','H':'𝗛','I':'𝗜','J':'𝗝','K':'𝗞','L':'𝗟','M':'𝗠','N':'𝗡','O':'𝗢','P':'𝗣','Q':'𝗤','R':'𝗥','S':'𝗦','T':'𝗧','U':'𝗨','V':'𝗩','W':'𝗪','X':'𝗫','Y':'𝗬','Z':'𝗭','0':'𝟬','1':'𝟭','2':'𝟐','3':'𝟑','4':'𝟒','5':'𝟓','6':'𝟔','7':'𝟕','8':'𝟖','9':'𝟗'};
+        const italicMap = {'a':'𝘢','b':'𝘣','c':'𝘤','d':'𝘥','e':'𝘦','f':'𝘧','g':'𝘨','h':'𝘩','i':'𝘪','j':'𝘫','k':'𝘬','l':'𝘭','m':'𝘮','n':'𝘯','o':'𝘰','p':'𝘱','q':'𝘲','r':'𝘳','s':'𝘴','t':'𝘵','u':'𝘶','v':'𝘷','w':'𝘸','x':'𝘹','y':'𝘺','z':'𝘻','A':'𝘈','B':'𝘉','C':'𝘊','D':'𝘋','E':'𝘌','F':'𝘍','G':'𝘎','H':'𝘏','I':'𝘐','J':'𝘑','K':'𝘒','L':'𝘓','M':'𝘔','N':'𝘕','O':'𝘖','P':'𝘗','Q':'𝘘','R':'𝘙','S':'𝘚','T':'𝘛','U':'𝘜','V':'𝘝','W':'𝘞','X':'𝘟','Y':'𝘠','Z':'𝘡','0':'0','1':'1','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9'};
+        const scriptMap = {'a':'𝒶','b':'𝒷','c':'𝒸','d':'𝒹','e':'ℯ','f':'𝒻','g':'ℊ','h':'𝒽','i':'𝒾','j':'𝒿','k':'𝓀','l':'𝓁','m':'𝓂','n':'𝓃','o':'ℴ','p':'𝓅','q':'𝓆','r':'𝓇','s':'𝓈','t':'𝓉','u':'𝓊','v':'𝓿','w':'𝓌','x':'𝓍','y':'𝓎','z':'𝒛','A':'𝒜','B':'ℬ','C':'𝒞','D':'𝒟','E':'ℰ','F':'ℱ','G':'𝒢','H':'𝒋','I':'ℐ','J':'𝒥','K':'𝒦','L':'ℒ','M':'ℳ','N':'𝒩','O':'𝒪','P':'𝒫','Q':'𝒬','R':'ℛ','S':'𝒮','T':'𝒯','U':'𝒰','V':'𝒱','W':'𝒲','X':'𝒳','Y':'𝒴','Z':'𝒵','0':'0','1':'1','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9'};
+        const sansMap = {'a':'𝖠','b':'𝖡','c':'𝖢','d':'𝖣','e':'𝖤','f':'𝖥','g':'𝖦','h':'𝖧','i':'𝖨','j':'𝖩','k':'𝖪','l':'𝖫','m':'𝖬','n':'𝖭','o':'𝖮','p':'𝖯','q':'𝖰','r':'𝖱','s':'𝖲','t':'𝖳','u':'𝖴','v':'𝖵','w':'𝖶','x':'𝖷','y':'𝖸','z':'𝖹','A':'𝖠','B':'𝖡','C':'𝖢','D':'𝖣','E':'𝖤','F':'𝖥','G':'𝖦','H':'𝖧','I':'𝖨','J':'𝖩','K':'𝪪','L':'𝖫','M':'𝖬','N':'𝖭','O':'𝖮','P':'𝖯','Q':'𝖰','R':'𝖱','S':'𝖲','T':'𝖳','U':'𝖴','V':'𝖵','W':'𝖶','X':'𝖷','Y':'𝖸','Z':'𝖹','0':'𝟶','1':'𝟷','2':'𝟸','3':'𝟹','4':'𝟺','5':'𝟻','6':'𝟼','7':'𝟽','8':'𝟾','9':'𝟿'};
 
-    function handleImage(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            uploadedImage = new Image();
-            uploadedImage.onload = function() {
-                document.getElementById('editorSection').style.display = 'block';
-                document.getElementById('widthInput').value = uploadedImage.width;
+        // Reverse map to clean any stylized/unicode characters back to normal English text safely
+        function cleanToNormalText(inputStr) {
+            let result = "";
+            for (let i = 0; i < inputStr.length; i++) {
+                let char = inputStr[i];
+                let found = char;
+                for (let map of [boldMap, italicMap, scriptMap, sansMap]) {
+                    for (let key in map) {
+                        if (map[key] === char) {
+                            found = key;
+                            break;
+                        }
+                    }
+                    if (found !== char) break;
+                }
+                result += found;
             }
-            uploadedImage.src = e.target.result;
+            return result;
         }
-        reader.readAsDataURL(file);
-    }
 
-    function processImage() {
-        if (!uploadedImage) return;
+        // Mobile Hamburger Menu Toggle
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('show');
+        }
 
-        let targetWidth = parseInt(document.getElementById('widthInput').value) || uploadedImage.width;
-        let scaleFactor = targetWidth / uploadedImage.width;
-        let targetHeight = Math.round(uploadedImage.height * scaleFactor);
+        // View Switcher
+        function switchView(viewName) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            if (viewName === 'tools') {
+                document.getElementById('toolsView').classList.add('active');
+            } else if (viewName === 'about') {
+                document.getElementById('aboutView').classList.add('active');
+            } else if (viewName === 'privacy') {
+                document.getElementById('privacyView').classList.add('active');
+            } else if (viewName === 'contact') {
+                document.getElementById('contactView').classList.add('active');
+            }
+        }
 
-        let canvas = document.createElement('canvas');
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
-        let ctx = canvas.getContext('2d');
-        ctx.drawImage(uploadedImage, 0, 0, targetWidth, targetHeight);
+        // Tool Tab Switching Logic
+        function switchTab(tool) {
+            document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tool).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-        let format = document.getElementById('formatSelect').value;
-        let dataUrl = canvas.toDataURL(format, 0.9);
+        function setPreset(w, h) {
+            document.getElementById('widthInput').value = w;
+            document.getElementById('heightInput').value = h;
+        }
 
-        let ext = format.split('/')[1];
-        if(ext === 'jpeg') ext = 'jpg';
+        function resizeImage() {
+            const fileInput = document.getElementById('resizeImageInput');
+            const widthInput = document.getElementById('widthInput').value;
+            const heightInput = document.getElementById('heightInput').value;
+            const isCircular = document.getElementById('circularCrop').checked;
+            const canvas = document.getElementById('resizeCanvas');
+            const ctx = canvas.getContext('2d');
 
-        let resultSection = document.getElementById('resultSection');
-        resultSection.innerHTML = `
-            <p style="color: #38bdf8;">Processed Successfully!</p>
-            <img src="${dataUrl}" alt="Converted Image">
-            <br>
-            <a href="${dataUrl}" download="converted-image.${ext}" class="download-btn">Download Image</a>
-        `;
-    }
-</script>
+            if (fileInput.files.length === 0) {
+                alert('Please select an image file first!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const originalWidth = img.width;
+                    const originalHeight = img.height;
+                    const targetWidth = widthInput ? parseInt(widthInput) : originalWidth;
+                    const targetHeight = heightInput ? parseInt(heightInput) : (originalHeight * targetWidth) / originalWidth;
+
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    ctx.clearRect(0, 0, targetWidth, targetHeight);
+
+                    if (isCircular) {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(targetWidth / 2, targetHeight / 2, Math.min(targetWidth, targetHeight) / 2, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.clip();
+                        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+                        ctx.restore();
+                    } else {
+                        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+                    }
+
+                    canvas.style.display = 'block';
+
+                    const link = document.createElement('a');
+                    link.download = isCircular ? 'circular-logo.png' : 'resized-image.jpg';
+                    link.href = isCircular ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg');
+                    link.click();
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function convertImage() {
+            const fileInput = document.getElementById('convertImageInput');
+            const format = document.getElementById('formatSelect').value;
+            const canvas = document.getElementById('convertCanvas');
+            const ctx = canvas.getContext('2d');
+
+            if (fileInput.files.length === 0) {
+                alert('Please select an image file first!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    canvas.style.display = 'block';
+
+                    const ext = format.split('/')[1];
+                    const link = document.createElement('a');
+                    link.download = `converted-image.${ext}`;
+                    link.href = canvas.toDataURL(format);
+                    link.click();
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function onUserTyping() {
+            const val = document.getElementById('textInput').value;
+            rawPlainText = cleanToNormalText(val);
+        }
+
+        function convertCase(type) {
+            const textArea = document.getElementById('textInput');
+            if (textArea.value) {
+                rawPlainText = cleanToNormalText(textArea.value);
+            }
+            if (!rawPlainText) { 
+                alert('Please enter some text first!'); 
+                return; 
+            }
+
+            clearActiveButtons();
+            if (type === 'upper') {
+                rawPlainText = rawPlainText.toUpperCase();
+            } else if (type === 'lower') {
+                rawPlainText = rawPlainText.toLowerCase();
+            }
+            textArea.value = rawPlainText;
+        }
+
+        function clearActiveButtons() {
+            ['bold', 'italic', 'script', 'sans'].forEach(s => {
+                document.getElementById(`btn-${s}`).classList.remove('active-style');
+            });
+        }
+
+        function applyTextStyle(styleType) {
+            const textArea = document.getElementById('textInput');
+            
+            // Hamesha textarea ke current text ko clean karke rawPlainText me le lo
+            if (textArea.value) {
+                rawPlainText = cleanToNormalText(textArea.value);
+            }
+            
+            if (!rawPlainText) { 
+                alert('Please enter some text first!'); 
+                return; 
+            }
+
+            clearActiveButtons();
+            document.getElementById(`btn-${styleType}`).classList.add('active-style');
+
+            let map = boldMap;
+            if (styleType === 'italic') map = italicMap;
+            else if (styleType === 'script') map = scriptMap;
+            else if (styleType === 'sans') map = sansMap;
+
+            let converted = '';
+            for (let i = 0; i < rawPlainText.length; i++) {
+                let char = rawPlainText[i];
+                converted += map[char] || char;
+            }
+            textArea.value = converted;
+        }
+
+        function copyText() {
+            const textArea = document.getElementById('textInput');
+            if (!textArea.value) { 
+                alert('No text available to copy!'); 
+                return; 
+            }
+            navigator.clipboard.writeText(textArea.value);
+            alert('Formatted text copied to clipboard!');
+        }
+    </script>
 
 </body>
 </html>
