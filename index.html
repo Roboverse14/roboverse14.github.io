@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,99 +8,172 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5926136240372749" crossorigin="anonymous"></script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Modern Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-300">
 
     <!-- Header / Navbar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="bg-blue-600 text-white font-bold p-2 rounded-lg text-lg">RT</span>
-                <span class="font-bold text-xl text-gray-900">Roboverse Tools</span>
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('tools')">
+                <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black p-2.5 rounded-xl shadow-md shadow-blue-500/20 text-base">RT</div>
+                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Roboverse Tools</span>
             </div>
-            <nav class="space-x-4 text-sm font-medium">
-                <button onclick="switchTab('tools')" class="text-blue-600 hover:text-blue-800">Tools</button>
-                <button onclick="switchTab('about')" class="text-gray-600 hover:text-blue-800">About Us</button>
-                <button onclick="switchTab('privacy')" class="text-gray-600 hover:text-blue-800">Privacy Policy</button>
-                <button onclick="switchTab('contact')" class="text-gray-600 hover:text-blue-800">Contact</button>
-            </nav>
+            
+            <div class="flex items-center space-x-3">
+                <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                    <button onclick="switchTab('tools')" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Tools</button>
+                    <button onclick="switchTab('about')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">About</button>
+                    <button onclick="switchTab('privacy')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">Privacy</button>
+                    <button onclick="switchTab('contact')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">Contact</button>
+                </nav>
+                <!-- Dark Mode Toggle Button -->
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:scale-105 transition shadow-sm">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+    <main class="max-w-4xl mx-auto px-4 py-10 flex-grow w-full space-y-8">
 
         <!-- TOOLS TAB -->
         <section id="tab-tools" class="space-y-6">
-            <div class="text-center space-y-2">
-                <h1 class="text-3xl font-extrabold text-gray-900">Free Online Image & Media Tools</h1>
-                <p class="text-gray-600">Convert WebP images to JPG and resize dimensions instantly in your browser.</p>
+            <div class="text-center space-y-3">
+                <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full">100% Free & Secure</span>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Professional Image & Media Tools</h1>
+                <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm md:text-base">Convert WebP images to JPG/PNG instantly right inside your browser with zero server uploads.</p>
             </div>
 
             <!-- Tool Box 1: WebP to JPG Converter -->
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 space-y-4">
-                <h2 class="text-xl font-bold text-gray-800">🖼️ WebP to JPG / PNG Converter</h2>
-                <p class="text-sm text-gray-500">Upload any WebP image and convert it instantly with one click.</p>
+            <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-2xl">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg md:text-xl font-bold">WebP to JPG / PNG Converter</h2>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Select or drop your image to convert instantly.</p>
+                    </div>
+                </div>
                 
-                <input type="file" id="imageInput" accept="image/webp, image/png, image/jpeg" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
-                
-                <div class="flex gap-4">
-                    <button onclick="convertImage('image/jpeg')" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-xl transition shadow">Convert to JPG</button>
-                    <button onclick="convertImage('image/png')" class="bg-gray-800 hover:bg-gray-900 text-white font-medium px-5 py-2.5 rounded-xl transition shadow">Convert to PNG</button>
+                <!-- Custom File Upload Box -->
+                <label class="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-6 cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 bg-slate-50/50 dark:bg-slate-800/50 transition group">
+                    <div class="space-y-2 text-center">
+                        <div class="mx-auto w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+                        </div>
+                        <div class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                            <span class="text-blue-600 dark:text-blue-400 font-semibold">Click to upload</span> or drag and drop
+                        </div>
+                        <p class="text-xs text-slate-400">WEBP, PNG, JPG up to 10MB</p>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/webp, image/png, image/jpeg" class="hidden" onchange="showFileName()">
+                </label>
+                <div id="fileNameDisplay" class="text-xs font-semibold text-blue-600 dark:text-blue-400 text-center hidden"></div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <button onclick="convertImage('image/jpeg')" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center justify-center space-x-2 text-sm">
+                        <i class="fa-solid fa-file-image"></i>
+                        <span>Convert to JPG</span>
+                    </button>
+                    <button onclick="convertImage('image/png')" class="flex-1 bg-slate-800 hover:bg-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-xl transition shadow-lg flex items-center justify-center space-x-2 text-sm">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                        <span>Convert to PNG</span>
+                    </button>
                 </div>
 
-                <div id="outputContainer" class="hidden mt-4 pt-4 border-t border-gray-100 space-y-3">
-                    <p class="text-green-600 font-semibold text-sm">Conversion Successful!</p>
-                    <a id="downloadBtn" download="converted-image.jpg" class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-xl transition shadow">Download Image</a>
+                <!-- Output Box -->
+                <div id="outputContainer" class="hidden pt-4 border-t border-slate-100 dark:border-slate-800 text-center space-y-3 animate-fadeIn">
+                    <div class="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-semibold">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Conversion Successful!</span>
+                    </div>
+                    <div>
+                        <a id="downloadBtn" download="converted-image.jpg" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download Converted Image</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- SEO Content Section to avoid Low Value Content rejection -->
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 space-y-3 text-sm text-gray-600">
-                <h3 class="text-lg font-bold text-gray-800">Why Use Our Image Tools?</h3>
-                <p>Our online utilities are designed to be fast, secure, and user-friendly. All conversions happen directly inside your web browser using client-side processing, meaning your personal images are never uploaded or stored on any external server.</p>
+            <!-- SEO Informational Card -->
+            <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 space-y-3">
+                <h3 class="text-base font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-halved text-blue-600"></i>
+                    <span>Secure Client-Side Processing</span>
+                </h3>
+                <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Our online tool runs entirely within your device's web browser. We utilize HTML5 Canvas and local processing, ensuring your confidential files and photographs are never transferred to or saved on any remote cloud server.
+                </p>
             </div>
         </section>
 
         <!-- ABOUT US TAB -->
-        <section id="tab-about" class="hidden bg-white p-8 rounded-2xl shadow-md space-y-4">
-            <h2 class="text-2xl font-bold text-gray-900">About Us</h2>
-            <p class="text-gray-600">Welcome to Roboverse Tools, your premier destination for quick, lightweight, and secure web utility tools. Our mission is to simplify everyday digital tasks for creators, students, and developers without requiring heavy software installations.</p>
+        <section id="tab-about" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+            <h2 class="text-2xl font-bold">About Us</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Welcome to Roboverse Tools, your premier online destination for instant, clean, and highly secure digital utility tools. Designed for content creators, developers, and everyday users who value fast performance and absolute data privacy.</p>
         </section>
 
         <!-- PRIVACY POLICY TAB -->
-        <section id="tab-privacy" class="hidden bg-white p-8 rounded-2xl shadow-md space-y-4">
-            <h2 class="text-2xl font-bold text-gray-900">Privacy Policy</h2>
-            <p class="text-gray-600">At Roboverse Tools, accessible from roboverse14.github.io, your privacy is extremely important to us.</p>
-            <h3 class="font-bold text-gray-800">Image Processing Security</h3>
-            <p class="text-gray-600">All image conversions and resizings are performed client-side using browser capabilities. We do not collect, store, or view any images or files you process through our platform.</p>
-            <h3 class="font-bold text-gray-800">Cookies & Advertisements</h3>
-            <p class="text-gray-600">We use Google AdSense to serve ads. Google may use cookies to serve ads based on your prior visits to this or other websites.</p>
+        <section id="tab-privacy" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+            <h2 class="text-2xl font-bold">Privacy Policy</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Your privacy is fully respected. At Roboverse Tools, since all operations happen locally on your browser, we do not log or store any user-uploaded files.</p>
+            <h3 class="font-bold text-sm pt-2">Google AdSense</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">We display ads served by Google AdSense which utilize cookies to provide relevant advertisements based on user interactions.</p>
         </section>
 
         <!-- CONTACT US TAB -->
-        <section id="tab-contact" class="hidden bg-white p-8 rounded-2xl shadow-md space-y-4">
-            <h2 class="text-2xl font-bold text-gray-900">Contact Us</h2>
-            <p class="text-gray-600">If you have any questions, feedback, or suggestions regarding our tools, feel free to reach out to us at:</p>
-            <p class="font-semibold text-blue-600">support@roboverse14.github.io</p>
+        <section id="tab-contact" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+            <h2 class="text-2xl font-bold">Contact Us</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Have any questions or suggestions? Reach out directly via email:</p>
+            <p class="font-semibold text-blue-600 dark:text-blue-400 text-sm">support@roboverse14.github.io</p>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-sm text-gray-500">
+    <footer class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
         <p>&copy; 2026 Roboverse Tools. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Tab Switching and Image Conversion -->
+    <!-- JavaScript Functionality -->
     <script>
         function switchTab(tabName) {
-            document.getElementById('tab-tools').classList.add('hidden');
-            document.getElementById('tab-about').classList.add('hidden');
-            document.getElementById('tab-privacy').classList.add('hidden');
-            document.getElementById('tab-contact').classList.add('hidden');
-            
+            ['tools', 'about', 'privacy', 'contact'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+            });
             document.getElementById('tab-' + tabName).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showFileName() {
+            const fileInput = document.getElementById('imageInput');
+            const display = document.getElementById('fileNameDisplay');
+            if (fileInput.files.length > 0) {
+                display.textContent = "Selected: " + fileInput.files[0].name;
+                display.classList.remove('hidden');
+            }
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
         }
 
         function convertImage(format) {
