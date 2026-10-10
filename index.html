@@ -1,215 +1,114 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roboverse Tools - Free Online Image Converters & Resizers</title>
-    <!-- Google AdSense Verification Code -->
+    <title>RoboVerse - Free Image Converter & Resizer</title>
+    
+    <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5926136240372749" crossorigin="anonymous"></script>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Modern Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
-</head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-300">
 
-    <!-- Header / Navbar -->
-    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100 dark:border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('tools')">
-                <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black p-2.5 rounded-xl shadow-md shadow-blue-500/20 text-base">RT</div>
-                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Roboverse Tools</span>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; background: #1e293b; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        h1 { text-align: center; margin-bottom: 10px; color: #38bdf8; font-size: 24px; }
+        p.subtitle { text-align: center; color: #94a3b8; margin-bottom: 25px; font-size: 14px; }
+        .upload-box { border: 2px dashed #475569; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+        .upload-box:hover { border-color: #38bdf8; background: #0f172a; }
+        input[type="file"] { display: none; }
+        .controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .control-group { flex: 1; min-width: 200px; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; color: #cbd5e1; }
+        select, input[type="number"] { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #475569; color: white; border-radius: 6px; }
+        button { width: 100%; background: #0284c7; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #0369a1; }
+        .result { margin-top: 25px; text-align: center; }
+        .result img { max-width: 100%; max-height: 200px; border-radius: 6px; margin-top: 10px; border: 1px solid #475569; }
+        .download-btn { display: inline-block; margin-top: 15px; background: #22c55e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; }
+        .download-btn:hover { background: #16a34a; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Image Converter & Resizer</h1>
+    <p class="subtitle">Convert PNG/JPG to WebP/JPG and resize instantly in your browser!</p>
+
+    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+        <p>📁 Click here to select an image</p>
+        <input type="file" id="fileInput" accept="image/*" onchange="handleImage(event)">
+    </div>
+
+    <div id="editorSection" style="display:none;">
+        <div class="controls">
+            <div class="control-group">
+                <label>Convert Format:</label>
+                <select id="formatSelect">
+                    <option value="image/jpeg">JPG</option>
+                    <option value="image/png">PNG</option>
+                    <option value="image/webp">WebP</option>
+                </select>
             </div>
-            
-            <div class="flex items-center space-x-3">
-                <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-                    <button onclick="switchTab('tools')" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Tools</button>
-                    <button onclick="switchTab('about')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">About</button>
-                    <button onclick="switchTab('privacy')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">Privacy</button>
-                    <button onclick="switchTab('contact')" class="hover:text-blue-600 dark:hover:text-blue-400 transition text-slate-600 dark:text-slate-400">Contact</button>
-                </nav>
-                <!-- Dark Mode Toggle Button -->
-                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:scale-105 transition shadow-sm">
-                    <i id="themeIcon" class="fa-solid fa-moon"></i>
-                </button>
+            <div class="control-group">
+                <label>Resize Width (px):</label>
+                <input type="number" id="widthInput" placeholder="Keep original">
             </div>
         </div>
-    </header>
 
-    <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-10 flex-grow w-full space-y-8">
+        <button onclick="processImage()">Process & Convert</button>
+    </div>
 
-        <!-- TOOLS TAB -->
-        <section id="tab-tools" class="space-y-6">
-            <div class="text-center space-y-3">
-                <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full">100% Free & Secure</span>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Professional Image & Media Tools</h1>
-                <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm md:text-base">Convert WebP images to JPG/PNG instantly right inside your browser with zero server uploads.</p>
-            </div>
+    <div class="result" id="resultSection"></div>
+</div>
 
-            <!-- Tool Box 1: WebP to JPG Converter -->
-            <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 space-y-6">
-                <div class="flex items-center space-x-3">
-                    <div class="p-3 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-2xl">
-                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-lg md:text-xl font-bold">WebP to JPG / PNG Converter</h2>
-                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Select or drop your image to convert instantly.</p>
-                    </div>
-                </div>
-                
-                <!-- Custom File Upload Box -->
-                <label class="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-6 cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 bg-slate-50/50 dark:bg-slate-800/50 transition group">
-                    <div class="space-y-2 text-center">
-                        <div class="mx-auto w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-700 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
-                        </div>
-                        <div class="text-sm font-medium text-slate-700 dark:text-slate-300">
-                            <span class="text-blue-600 dark:text-blue-400 font-semibold">Click to upload</span> or drag and drop
-                        </div>
-                        <p class="text-xs text-slate-400">WEBP, PNG, JPG up to 10MB</p>
-                    </div>
-                    <input type="file" id="imageInput" accept="image/webp, image/png, image/jpeg" class="hidden" onchange="showFileName()">
-                </label>
-                <div id="fileNameDisplay" class="text-xs font-semibold text-blue-600 dark:text-blue-400 text-center hidden"></div>
+<script>
+    let uploadedImage = null;
 
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <button onclick="convertImage('image/jpeg')" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition shadow-lg shadow-blue-500/25 flex items-center justify-center space-x-2 text-sm">
-                        <i class="fa-solid fa-file-image"></i>
-                        <span>Convert to JPG</span>
-                    </button>
-                    <button onclick="convertImage('image/png')" class="flex-1 bg-slate-800 hover:bg-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-xl transition shadow-lg flex items-center justify-center space-x-2 text-sm">
-                        <i class="fa-solid fa-file-circle-check"></i>
-                        <span>Convert to PNG</span>
-                    </button>
-                </div>
+    function handleImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
 
-                <!-- Output Box -->
-                <div id="outputContainer" class="hidden pt-4 border-t border-slate-100 dark:border-slate-800 text-center space-y-3 animate-fadeIn">
-                    <div class="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-semibold">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <span>Conversion Successful!</span>
-                    </div>
-                    <div>
-                        <a id="downloadBtn" download="converted-image.jpg" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm">
-                            <i class="fa-solid fa-download"></i>
-                            <span>Download Converted Image</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SEO Informational Card -->
-            <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 space-y-3">
-                <h3 class="text-base font-bold flex items-center space-x-2">
-                    <i class="fa-solid fa-shield-halved text-blue-600"></i>
-                    <span>Secure Client-Side Processing</span>
-                </h3>
-                <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Our online tool runs entirely within your device's web browser. We utilize HTML5 Canvas and local processing, ensuring your confidential files and photographs are never transferred to or saved on any remote cloud server.
-                </p>
-            </div>
-        </section>
-
-        <!-- ABOUT US TAB -->
-        <section id="tab-about" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
-            <h2 class="text-2xl font-bold">About Us</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Welcome to Roboverse Tools, your premier online destination for instant, clean, and highly secure digital utility tools. Designed for content creators, developers, and everyday users who value fast performance and absolute data privacy.</p>
-        </section>
-
-        <!-- PRIVACY POLICY TAB -->
-        <section id="tab-privacy" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
-            <h2 class="text-2xl font-bold">Privacy Policy</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">Your privacy is fully respected. At Roboverse Tools, since all operations happen locally on your browser, we do not log or store any user-uploaded files.</p>
-            <h3 class="font-bold text-sm pt-2">Google AdSense</h3>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">We display ads served by Google AdSense which utilize cookies to provide relevant advertisements based on user interactions.</p>
-        </section>
-
-        <!-- CONTACT US TAB -->
-        <section id="tab-contact" class="hidden bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
-            <h2 class="text-2xl font-bold">Contact Us</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">Have any questions or suggestions? Reach out directly via email:</p>
-            <p class="font-semibold text-blue-600 dark:text-blue-400 text-sm">support@roboverse14.github.io</p>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
-        <p>&copy; 2026 Roboverse Tools. All rights reserved.</p>
-    </footer>
-
-    <!-- JavaScript Functionality -->
-    <script>
-        function switchTab(tabName) {
-            ['tools', 'about', 'privacy', 'contact'].forEach(t => {
-                document.getElementById('tab-' + t).classList.add('hidden');
-            });
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showFileName() {
-            const fileInput = document.getElementById('imageInput');
-            const display = document.getElementById('fileNameDisplay');
-            if (fileInput.files.length > 0) {
-                display.textContent = "Selected: " + fileInput.files[0].name;
-                display.classList.remove('hidden');
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            uploadedImage = new Image();
+            uploadedImage.onload = function() {
+                document.getElementById('editorSection').style.display = 'block';
+                document.getElementById('widthInput').value = uploadedImage.width;
             }
+            uploadedImage.src = e.target.result;
         }
+        reader.readAsDataURL(file);
+    }
 
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('themeIcon');
-            html.classList.toggle('dark');
-            if (html.classList.contains('dark')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-            }
-        }
+    function processImage() {
+        if (!uploadedImage) return;
 
-        function convertImage(format) {
-            const fileInput = document.getElementById('imageInput');
-            if (fileInput.files.length === 0) {
-                alert('Pehle ek image select karo!');
-                return;
-            }
+        let targetWidth = parseInt(document.getElementById('widthInput').value) || uploadedImage.width;
+        let scaleFactor = targetWidth / uploadedImage.width;
+        let targetHeight = Math.round(uploadedImage.height * scaleFactor);
 
-            const file = fileInput.files[0];
-            const reader = new FileReader();
+        let canvas = document.createElement('canvas');
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage(uploadedImage, 0, 0, targetWidth, targetHeight);
 
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
+        let format = document.getElementById('formatSelect').value;
+        let dataUrl = canvas.toDataURL(format, 0.9);
 
-                    const dataUrl = canvas.toDataURL(format);
-                    const downloadBtn = document.getElementById('downloadBtn');
-                    downloadBtn.href = dataUrl;
-                    downloadBtn.download = `converted-image.${format === 'image/jpeg' ? 'jpg' : 'png'}`;
-                    
-                    document.getElementById('outputContainer').classList.remove('hidden');
-                }
-                img.src = event.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    </script>
+        let ext = format.split('/')[1];
+        if(ext === 'jpeg') ext = 'jpg';
+
+        let resultSection = document.getElementById('resultSection');
+        resultSection.innerHTML = `
+            <p style="color: #38bdf8;">Processed Successfully!</p>
+            <img src="${dataUrl}" alt="Converted Image">
+            <br>
+            <a href="${dataUrl}" download="converted-image.${ext}" class="download-btn">Download Image</a>
+        `;
+    }
+</script>
+
 </body>
 </html>
