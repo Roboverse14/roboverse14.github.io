@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoboVerse - Free Online Utility Tools Suite</title>
+    <title>AgeCalc Pro - Free Online Age & Date Calculator</title>
     
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5926136240372749" crossorigin="anonymous"></script>
 
     <style>
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #111827;
+            --bg-primary: #090d16;
+            --bg-secondary: #131c31;
+            --bg-card: #1b2642;
             --accent: #38bdf8;
             --accent-hover: #0ea5e9;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
+            --border: #2a3959;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -26,10 +26,10 @@
         /* Navbar & Hamburger */
         nav { 
             position: fixed; top: 0; left: 0; width: 100%; 
-            background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(10px);
+            background: rgba(19, 28, 49, 0.95); backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border); 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 16px 30px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
+            padding: 16px 30px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
         }
         .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
         .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
@@ -37,8 +37,8 @@
         .nav-links a:hover, .nav-links a.active { color: var(--accent); }
         .hamburger { display: none; cursor: pointer; font-size: 26px; color: var(--accent); background: none; border: none; }
 
-        /* Layout */
-        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        /* Container & Layout */
+        .container { max-width: 750px; margin: 30px auto; padding: 0 20px; }
         .hero { text-align: center; margin-bottom: 35px; }
         .hero h1 { color: var(--text-main); font-size: 32px; font-weight: 800; margin-bottom: 10px; }
         .hero h1 span { color: var(--accent); }
@@ -49,40 +49,42 @@
             padding: 30px; border-radius: 16px; margin-bottom: 25px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
         }
-        .card h2 { font-size: 20px; color: var(--accent); margin-bottom: 15px; }
+        .card h2 { font-size: 20px; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         
         /* Form Controls */
-        .upload-box { 
-            border: 2px dashed var(--border); background: var(--bg-card);
-            padding: 25px; text-align: center; border-radius: 12px; 
-            cursor: pointer; transition: 0.3s; margin-bottom: 15px; 
-        }
-        .upload-box:hover { border-color: var(--accent); }
-        input[type="file"] { display: none; }
-        
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        @media (max-width: 600px) { .controls { grid-template-columns: 1fr; } }
-        
-        .control-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-        label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-        select, input, textarea { 
-            width: 100%; padding: 12px; background: var(--bg-card); 
+        .control-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        label { font-size: 14px; color: var(--text-muted); font-weight: 600; }
+        input[type="date"] { 
+            width: 100%; padding: 14px; background: var(--bg-card); 
             border: 1px solid var(--border); color: var(--text-main); 
-            border-radius: 8px; font-size: 14px; outline: none; 
+            border-radius: 10px; font-size: 15px; outline: none; transition: 0.3s;
         }
-        textarea { resize: vertical; min-height: 80px; }
+        input[type="date"]:focus { border-color: var(--accent); }
         
         .btn { 
             width: 100%; background: var(--accent); color: var(--bg-primary); 
-            border: none; padding: 12px; border-radius: 8px; font-size: 15px; 
+            border: none; padding: 14px; border-radius: 10px; font-size: 16px; 
             font-weight: 700; cursor: pointer; transition: 0.3s; text-align: center;
         }
-        .btn:hover { background: var(--accent-hover); }
+        .btn:hover { background: var(--accent-hover); box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
         
-        .result-box { margin-top: 15px; background: var(--bg-card); padding: 15px; border-radius: 8px; border: 1px solid var(--border); word-break: break-all; font-size: 14px; }
-        .result { margin-top: 20px; text-align: center; display: none; }
-        .result img { max-width: 100%; max-height: 220px; border-radius: 8px; margin-top: 10px; border: 1px solid var(--border); }
-        .download-btn { display: inline-block; margin-top: 12px; background: #22c55e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px; font-weight: 700; }
+        /* Results Grid Styling */
+        .result-section { margin-top: 25px; display: none; }
+        .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        @media (max-width: 600px) { .result-grid { grid-template-columns: 1fr; } }
+        
+        .result-box { 
+            background: var(--bg-card); border: 1px solid var(--border); 
+            padding: 20px; border-radius: 12px; text-align: center; 
+        }
+        .result-box .number { font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+        .result-box .label { font-size: 13px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .extra-info { 
+            background: var(--bg-card); border: 1px solid var(--border); 
+            padding: 18px; border-radius: 12px; font-size: 15px; text-align: center; color: var(--text-main); 
+        }
+        .extra-info span { color: var(--accent); font-weight: 700; }
 
         /* Footer */
         footer { 
@@ -92,12 +94,14 @@
         }
         footer .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 20px; }
         footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
             .nav-links { 
                 display: none; flex-direction: column; position: absolute; 
                 top: 70px; left: 0; width: 100%; background: var(--bg-secondary); 
                 padding: 20px; border-bottom: 1px solid var(--border); gap: 15px; align-items: flex-start;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             }
             .nav-links.active { display: flex; }
             .hamburger { display: block; }
@@ -106,8 +110,9 @@
 </head>
 <body>
 
+    <!-- Navigation Bar -->
     <nav>
-        <a href="index.html" class="logo">⚡ RoboVerse</a>
+        <a href="index.html" class="logo">⏳ AgeCalc Pro</a>
         <button class="hamburger" onclick="toggleMenu()">☰</button>
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html" class="active">Home</a></li>
@@ -119,68 +124,52 @@
 
 <div class="container">
     <header class="hero">
-        <h1>Welcome to <span>RoboVerse</span></h1>
-        <p>Your ultimate destination for lightning-fast online web utilities.</p>
+        <h1>Calculate Your <span>Exact Age</span></h1>
+        <p>Find out your precise age in years, months, days, hours, and upcoming birthday countdown.</p>
     </header>
 
-    <!-- Tool 1: Image Converter & Resizer -->
+    <!-- Age Calculator Card -->
     <div class="card">
-        <h2>🖼️ Image Converter & Resizer</h2>
-        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-            <p id="fileLabel">📁 Click to upload Image (PNG, JPG, WebP)</p>
-            <input type="file" id="fileInput" accept="image/*" onchange="handleImage(event)">
+        <h2>📅 Online Age Calculator</h2>
+        
+        <div class="control-group">
+            <label>Select Your Date of Birth:</label>
+            <input type="date" id="dobInput">
         </div>
 
-        <div id="editorSection" style="display:none;">
-            <div class="controls">
-                <div class="control-group">
-                    <label>Target Format</label>
-                    <select id="formatSelect">
-                        <option value="image/jpeg">JPG</option>
-                        <option value="image/png">PNG</option>
-                        <option value="image/webp">WebP</option>
-                    </select>
+        <div class="control-group">
+            <label>Calculate Age As Of (Optional - Defaults to Today):</label>
+            <input type="date" id="toDateInput">
+        </div>
+
+        <button class="btn" onclick="calculateAge()">Calculate Exact Age</button>
+
+        <!-- Results Display -->
+        <div class="result-section" id="resultSection">
+            <div class="result-grid">
+                <div class="result-box">
+                    <div class="number" id="yearsVal">0</div>
+                    <div class="label">Years</div>
                 </div>
-                <div class="control-group">
-                    <label>Resize Width (px)</label>
-                    <input type="number" id="widthInput" placeholder="Width in px">
+                <div class="result-box">
+                    <div class="number" id="monthsVal">0</div>
+                    <div class="label">Months</div>
+                </div>
+                <div class="result-box">
+                    <div class="number" id="daysVal">0</div>
+                    <div class="label">Days</div>
                 </div>
             </div>
-            <button class="btn" onclick="processImage()">Convert & Resize</button>
-        </div>
 
-        <div class="result" id="resultSection">
-            <p style="color: var(--accent); font-weight: 700;">Success!</p>
-            <img id="outputPreview" src="" alt="Preview">
-            <br>
-            <a id="downloadLink" href="#" download="" class="download-btn">Download Image</a>
+            <div class="extra-info" id="extraInfoBox">
+                <!-- Detailed breakdown or birthday countdown -->
+            </div>
         </div>
-    </div>
-
-    <!-- Tool 2: Base64 Encoder / Decoder -->
-    <div class="card">
-        <h2>🔐 Base64 Encoder & Decoder</h2>
-        <div class="control-group">
-            <label>Enter Text or Code:</label>
-            <textarea id="base64Input" placeholder="Type text here..."></textarea>
-        </div>
-        <div class="controls">
-            <button class="btn" onclick="encodeBase64()" style="background:#0284c7; color:white;">Encode</button>
-            <button class="btn" onclick="decodeBase64()" style="background:#0369a1; color:white;">Decode</button>
-        </div>
-        <div class="result-box" id="base64Result">Output will appear here...</div>
-    </div>
-
-    <!-- Tool 3: Secure Password Generator -->
-    <div class="card">
-        <h2>🔑 Secure Password Generator</h2>
-        <button class="btn" onclick="generatePassword()">Generate Strong Password</button>
-        <div class="result-box" id="passwordResult" style="text-align:center; font-weight:bold; letter-spacing:1px; margin-top:12px;">Click above to generate</div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 RoboVerse. All rights reserved.</p>
+    <p>&copy; 2026 AgeCalc Pro. All rights reserved.</p>
     <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
         <a href="about.html">About Us</a>
@@ -189,78 +178,69 @@
 </footer>
 
 <script>
+    // Hamburger Menu Toggle
     function toggleMenu() {
         document.getElementById('navLinks').classList.toggle('active');
     }
 
-    // Image Tool
-    let uploadedImage = null;
-    let originalFileName = "image";
-    function handleImage(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        originalFileName = file.name.substring(0, file.name.lastIndexOf('.')) || 'image';
-        document.getElementById('fileLabel').innerText = `Selected: ${file.name}`;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            uploadedImage = new Image();
-            uploadedImage.onload = function() {
-                document.getElementById('editorSection').style.display = 'block';
-                document.getElementById('widthInput').value = uploadedImage.width;
-                document.getElementById('resultSection').style.display = 'none';
-            }
-            uploadedImage.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
+    // Set default target date to today on load
+    window.onload = function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('toDateInput').value = today;
+    };
 
-    function processImage() {
-        if (!uploadedImage) return;
-        let targetWidth = parseInt(document.getElementById('widthInput').value) || uploadedImage.width;
-        let scaleFactor = targetWidth / uploadedImage.width;
-        let targetHeight = Math.round(uploadedImage.height * scaleFactor);
-        let canvas = document.createElement('canvas');
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
-        let ctx = canvas.getContext('2d');
-        ctx.drawImage(uploadedImage, 0, 0, targetWidth, targetHeight);
-        let format = document.getElementById('formatSelect').value;
-        let dataUrl = canvas.toDataURL(format, 0.92);
-        let ext = format.split('/')[1];
-        if(ext === 'jpeg') ext = 'jpg';
-        document.getElementById('outputPreview').src = dataUrl;
-        let dl = document.getElementById('downloadLink');
-        dl.href = dataUrl;
-        dl.download = `${originalFileName}-processed.${ext}`;
+    // Age Calculation Logic
+    function calculateAge() {
+        const dobVal = document.getElementById('dobInput').value;
+        const toDateVal = document.getElementById('toDateInput').value;
+
+        if (!dobVal) {
+            alert("Please select your date of birth!");
+            return;
+        }
+
+        const dob = new Date(dobVal);
+        const targetDate = toDateVal ? new Date(toDateVal) : new Date();
+
+        if (dob > targetDate) {
+            alert("Date of birth cannot be after the target date!");
+            return;
+        }
+
+        let years = targetDate.getFullYear() - dob.getFullYear();
+        let months = targetDate.getMonth() - dob.getMonth();
+        let days = targetDate.getDate() - dob.getDate();
+
+        if (days < 0) {
+            months--;
+            // Get number of days in the previous month
+            const prevMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        // Total summary stats
+        const diffTime = Math.abs(targetDate - dob);
+        const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const totalWeeks = Math.floor(totalDays / 7);
+        const totalHours = totalDays * 24;
+
+        // Display results
+        document.getElementById('yearsVal').innerText = years;
+        document.getElementById('monthsVal').innerText = months;
+        document.getElementById('daysVal').innerText = days;
+
+        document.getElementById('extraInfoBox').innerHTML = `
+            Total Lived: <span>${totalDays.toLocaleString()}</span> Days 
+            (or <span>${totalWeeks.toLocaleString()}</span> Weeks / 
+            <span>${totalHours.toLocaleString()}</span> Hours)
+        `;
+
         document.getElementById('resultSection').style.display = 'block';
-    }
-
-    // Base64 Tool
-    function encodeBase64() {
-        let text = document.getElementById('base64Input').value;
-        try {
-            document.getElementById('base64Result').innerText = btoa(text);
-        } catch (e) {
-            document.getElementById('base64Result').innerText = "Error encoding text!";
-        }
-    }
-    function decodeBase64() {
-        let text = document.getElementById('base64Input').value;
-        try {
-            document.getElementById('base64Result').innerText = atob(text);
-        } catch (e) {
-            document.getElementById('base64Result').innerText = "Invalid Base64 string!";
-        }
-    }
-
-    // Password Generator
-    function generatePassword() {
-        let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
-        let password = "";
-        for (let i = 0; i < 16; i++) {
-            password += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        document.getElementById('passwordResult').innerText = password;
     }
 </script>
 
