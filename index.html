@@ -8,107 +8,8 @@
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5926136240372749" crossorigin="anonymous"></script>
 
-    <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f9f9f9;
-            --bg-card: #ffffff;
-            --pinterest-red: #e60023;
-            --pinterest-red-hover: #ad081b;
-            --text-main: #111111;
-            --text-muted: #5f5f5f;
-            --border: #efefef;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-primary); color: var(--text-main); padding-top: 80px; line-height: 1.6; }
-        
-        /* Pinterest Style Navbar (Red & White) */
-        nav { 
-            position: fixed; top: 0; left: 0; width: 100%; 
-            background: #ffffff; border-bottom: 1px solid var(--border); 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 14px 30px; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
-        }
-        .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--pinterest-red); display: flex; align-items: center; gap: 4px; }
-        .logo span { color: #111; }
-        
-        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--pinterest-red); }
-        .hamburger { display: none; cursor: pointer; font-size: 26px; color: var(--pinterest-red); background: none; border: none; }
-
-        /* Container & Hero */
-        .container { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
-        .hero { text-align: center; margin-bottom: 30px; }
-        .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; color: #111; }
-        .hero h1 span { color: var(--pinterest-red); }
-        .hero p { color: var(--text-muted); font-size: 15px; }
-
-        /* Search Bar */
-        .search-container { max-width: 600px; margin: 0 auto 35px auto; }
-        .search-input { 
-            width: 100%; padding: 14px 20px; background: #e9e9e9; 
-            border: none; color: var(--text-main); 
-            border-radius: 24px; font-size: 15px; outline: none; transition: 0.3s;
-        }
-        .search-input:focus { background: #fff; box-shadow: 0 0 0 4px rgba(230,0,35,0.2); border: 1px solid var(--pinterest-red); }
-
-        /* Pinterest Style Masonry Grid */
-        .pinterest-grid {
-            column-count: 4;
-            column-gap: 16px;
-        }
-        @media (max-width: 1200px) { .pinterest-grid { column-count: 3; } }
-        @media (max-width: 800px) { .pinterest-grid { column-count: 2; } }
-        @media (max-width: 500px) { .pinterest-grid { column-count: 1; } }
-
-        .meme-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 16px;
-            break-inside: avoid;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-        }
-        .meme-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
-
-        .meme-media { width: 100%; height: auto; display: block; background: #000; max-height: 350px; object-fit: cover; }
-        .meme-info { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-        .meme-title { font-size: 14px; font-weight: 700; color: #111; }
-        
-        .download-btn { 
-            display: block; width: 100%; background: var(--pinterest-red); color: white; 
-            text-align: center; padding: 10px; border-radius: 20px; font-weight: 700; 
-            text-decoration: none; font-size: 13px; transition: 0.3s; 
-        }
-        .download-btn:hover { background: var(--pinterest-red-hover); }
-
-        /* Footer */
-        footer { 
-            text-align: center; margin-top: 60px; padding: 30px 0; 
-            border-top: 1px solid var(--border); color: var(--text-muted); font-size: 13px; 
-            background: #fafafa;
-        }
-        footer .footer-links { margin-top: 12px; display: flex; justify-content: center; gap: 20px; }
-        footer a { color: var(--pinterest-red); text-decoration: none; font-weight: 600; }
-        footer a:hover { text-decoration: underline; }
-
-        @media (max-width: 768px) {
-            .nav-links { 
-                display: none; flex-direction: column; position: absolute; 
-                top: 70px; left: 0; width: 100%; background: white; 
-                padding: 20px; border-bottom: 1px solid var(--border); gap: 15px; align-items: flex-start;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            }
-            .nav-links.active { display: flex; }
-            .hamburger { display: block; }
-        }
-    </style>
+    <!-- External CSS link -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -117,7 +18,7 @@
         <a href="index.html" class="logo">Meme<span>Hub</span></a>
         <button class="hamburger" onclick="toggleMenu()">☰</button>
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
             <li><a href="privacy.html">Privacy Policy</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact Us</a></li>
@@ -132,12 +33,12 @@
 
     <!-- Search Input -->
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search viral video memes (e.g., Tauba Tauba, Yes Yes No)..." onkeyup="filterMemes()">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search 500+ viral video memes (e.g., Tauba Tauba, Meme #45)..." onkeyup="filterMemes()">
     </div>
 
     <!-- Pinterest Masonry Grid -->
     <div class="pinterest-grid" id="memeGrid">
-        <!-- Dynamic Video Memes injected here -->
+        <!-- Dynamic Memes injected via JS -->
     </div>
 </div>
 
@@ -150,84 +51,8 @@
     </div>
 </footer>
 
-<script>
-    // Hamburger Menu Toggle
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
-
-    // Viral Video Memes Database (Real trending reels & video meme links)
-    const viralVideoMemes = [
-        { 
-            title: "Tauba Tauba Viral Dance Meme", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
-        },
-        { 
-            title: "Yes Yes No No No Meme Clip", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" 
-        },
-        { 
-            title: "Funny Cat Epic Fail Reaction", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" 
-        },
-        { 
-            title: "Confused Travolta Meme HD", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" 
-        },
-        { 
-            title: "Epic Suspense Sound Effect Video", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" 
-        },
-        { 
-            title: "Hacker Typing Matrix Meme", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4" 
-        },
-        { 
-            title: "Laughing Baby Viral Template", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" 
-        },
-        { 
-            title: "Oh No No No Sound Reel Clip", 
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" 
-        }
-    ];
-
-    // Render Function
-    function renderMemes(memesToRender) {
-        const grid = document.getElementById('memeGrid');
-        grid.innerHTML = "";
-
-        if(memesToRender.length === 0) {
-            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No video memes found!</p>`;
-            return;
-        }
-
-        memesToRender.forEach(meme => {
-            const card = document.createElement('div');
-            card.className = 'meme-card';
-            card.innerHTML = `
-                <video src="${meme.url}" class="meme-media" controls preload="metadata" muted></video>
-                <div class="meme-info">
-                    <div class="meme-title">${meme.title}</div>
-                    <a href="${meme.url}" target="_blank" download class="download-btn">Download Video MP4</a>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    // Search Filter
-    function filterMemes() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = viralVideoMemes.filter(m => m.title.toLowerCase().includes(query));
-        renderMemes(filtered);
-    }
-
-    // Initial Load
-    window.onload = function() {
-        renderMemes(viralVideoMemes);
-    }
-</script>
+<!-- External JavaScript link -->
+<script src="script.js"></script>
 
 </body>
 </html>
