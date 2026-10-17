@@ -192,20 +192,20 @@
                 <h3 class="text-3xl md:text-4xl font-display font-bold mb-4">Types of Robots</h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6" onclick="markComplete('lesson7')">
-                    <h4 class="text-xl font-bold mt-20">Industrial</h4>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6 flex flex-col justify-end" onclick="markComplete('lesson7')">
+                    <h4 class="text-xl font-bold">Industrial</h4>
                     <p class="text-sm text-gray-300 mt-2">Used in automation, assembly lines, and heavy manufacturing.</p>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6" onclick="markComplete('lesson8')">
-                    <h4 class="text-xl font-bold mt-20">Medical</h4>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6 flex flex-col justify-end" onclick="markComplete('lesson8')">
+                    <h4 class="text-xl font-bold">Medical</h4>
                     <p class="text-sm text-gray-300 mt-2">Surgical assistants, advanced prosthetics, and healthcare bots.</p>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6" onclick="markComplete('lesson9')">
-                    <h4 class="text-xl font-bold mt-20">Exploration</h4>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6 flex flex-col justify-end" onclick="markComplete('lesson9')">
+                    <h4 class="text-xl font-bold">Exploration</h4>
                     <p class="text-sm text-gray-300 mt-2">Mars rovers, deep-ocean drones, and space explorers.</p>
                 </div>
-                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6" onclick="markComplete('lesson10')">
-                    <h4 class="text-xl font-bold mt-20">Humanoids</h4>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer bg-gray-800 p-6 flex flex-col justify-end" onclick="markComplete('lesson10')">
+                    <h4 class="text-xl font-bold">Humanoids</h4>
                     <p class="text-sm text-gray-300 mt-2">Advanced robots designed to mimic human looks and actions.</p>
                 </div>
             </div>
@@ -269,8 +269,8 @@
     <footer class="bg-gray-50 dark:bg-gray-800 border-t py-8">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
             <div class="flex justify-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
-                <a href="#" class="hover:text-brand-yellow">Privacy Policy</a>
-                <a href="#" class="hover:text-brand-yellow">Terms & Conditions</a>
+                <a href="privacy-policy/index.html" class="hover:text-brand-yellow">Privacy Policy</a>
+                <a href="terms/index.html" class="hover:text-brand-yellow">Terms & Conditions</a>
                 <a href="#contact" class="hover:text-brand-yellow">Contact Us</a>
             </div>
             <p class="text-gray-400 text-sm">&copy; 2026 RoboMind AI Platform. All rights reserved.</p>
@@ -332,31 +332,54 @@
     let currentQuestion = 0, quizScore = 0;
 
     function loadQuiz() {
-        if(!document.getElementById('optionsContainer')) return;
+        const optionsContainer = document.getElementById('optionsContainer');
+        if(!optionsContainer) return;
+        if(currentQuestion >= quizData.length) {
+            showQuizResult();
+            return;
+        }
         const q = quizData[currentQuestion];
         document.getElementById('currentQ').textContent = currentQuestion + 1;
         document.getElementById('totalQ').textContent = quizData.length;
         document.getElementById('questionText').textContent = q.question;
         document.getElementById('score').textContent = quizScore;
-        document.getElementById('optionsContainer').innerHTML = q.options.map((opt, idx) => `<button onclick="checkAnswer(${idx})" class="quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-brand-yellow hover:bg-yellow-50 dark:hover:bg-gray-800 transition font-medium text-gray-700 dark:text-gray-300">${String.fromCharCode(65 + idx)}. ${opt}</button>`).join('');
+        optionsContainer.innerHTML = q.options.map((opt, idx) => `<button onclick="checkAnswer(${idx})" class="quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-brand-yellow hover:bg-yellow-50 dark:hover:bg-gray-800 transition font-medium text-gray-700 dark:text-gray-300">${String.fromCharCode(65 + idx)}. ${opt}</button>`).join('');
     }
 
     function checkAnswer(selected) {
         const correct = quizData[currentQuestion].correct;
-        document.querySelectorAll('.quiz-option').forEach((btn, idx) => { btn.disabled = true; btn.classList.add(idx === correct ? 'quiz-correct' : idx === selected ? 'quiz-wrong' : ''); });
+        document.querySelectorAll('.quiz-option').forEach((btn, idx) => { 
+            btn.disabled = true; 
+            btn.classList.add(idx === correct ? 'quiz-correct' : idx === selected ? 'quiz-wrong' : ''); 
+        });
         if (selected === correct) quizScore++;
-        setTimeout(() => { currentQuestion++; currentQuestion < quizData.length ? loadQuiz() : showQuizResult(); }, 1500);
+        setTimeout(() => { 
+            currentQuestion++; 
+            loadQuiz(); 
+        }, 1200);
     }
 
     function showQuizResult() {
-        document.getElementById('quizContent').classList.add('hidden');
-        document.getElementById('quizResult').classList.remove('hidden');
+        const quizContent = document.getElementById('quizContent');
+        const quizResult = document.getElementById('quizResult');
+        if(quizContent) quizContent.classList.add('hidden');
+        if(quizResult) quizResult.classList.remove('hidden');
         document.getElementById('finalScore').textContent = quizScore;
         document.getElementById('totalScore').textContent = quizData.length;
-        progress.quizzes++; progress.score += quizScore; updateProgress();
+        progress.quizzes++; 
+        progress.score += quizScore; 
+        updateProgress();
     }
 
-    function restartQuiz() { currentQuestion = 0; quizScore = 0; document.getElementById('quizContent').classList.remove('hidden'); document.getElementById('quizResult').classList.add('hidden'); loadQuiz(); }
+    function restartQuiz() { 
+        currentQuestion = 0; 
+        quizScore = 0; 
+        const quizContent = document.getElementById('quizContent');
+        const quizResult = document.getElementById('quizResult');
+        if(quizContent) quizContent.classList.remove('hidden'); 
+        if(quizResult) quizResult.classList.add('hidden'); 
+        loadQuiz(); 
+    }
 
     function handleContact(e) { e.preventDefault(); showToast('Message Sent! 📧'); e.target.reset(); }
     function showToast(msg) { const t = document.getElementById('toast'); if(t){ document.getElementById('toastMessage').textContent = msg; t.classList.remove('hidden'); setTimeout(() => t.classList.add('hidden'), 3000); } }
